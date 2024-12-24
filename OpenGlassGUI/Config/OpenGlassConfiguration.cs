@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Microsoft.Win32;
 
+using OpenGlassGUI.Core;
 using OpenGlassGUI.Core.WinInterop;
 
 namespace OpenGlassGUI.Config
@@ -51,9 +52,13 @@ uninstall.bat
 
         public OpenGlassConfiguration()
         {
+            LogManager.Log("Init OpenGlassConfiguration", "Core OpenGlassConfiguration");
+
             if (!Directory.Exists(InstallationPath) /*&& !File.Exists(InstallationPath + InstallationConfirmation)*/)
             {
-              
+
+                LogManager.Log($"!!! STOP !!! Couldn't find {InstallationPath}, quitting", "Core OpenGlassConfiguration");
+
                 var result = MessageBox.Show("OpenGlass is not installed on this system or not inside the expected location. Please install OpenGlass into C:\\OpenGlass\\", "OpenGlassGUI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 /*if (result == DialogResult.Yes)
@@ -70,6 +75,8 @@ uninstall.bat
             {
                 if (!File.Exists(InstallationPath + i))
                 {
+                    LogManager.Log($"!!! STOP !!! Couldn't find {i}, quitting", "Core OpenGlassConfiguration");
+
                     var result = MessageBox.Show($"OpenGlass is missing the file {i}. Please reinstall OpenGlass into C:\\OpenGlass\\", "OpenGlassGUI", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     /*if (result == DialogResult.Yes)
                     {
@@ -83,6 +90,8 @@ uninstall.bat
             }
 
             //OpenGlassConfigurator.Test();
+
+            LogManager.Log($"Init OpenGlassRegistrySettings", "Core OpenGlassConfiguration");
 
             RegistrySettings = new OpenGlassRegistrySettings();
         }
@@ -150,12 +159,17 @@ uninstall.bat
 
         public OpenGlassRegistrySettings()
         {
+            LogManager.Log($"Init OpenGlassRegistrySettings", "Core OpenGlassRegistrySettings");
+
+
             _dwmKey = Registry.LocalMachine.OpenSubKey(OpenGlassConfiguration.DWMRegistryKey, true);
 
-           
+            LogManager.Log($"Opening Dwm Registry SubKey", "Core OpenGlassRegistrySettings");
+
+
         }
 
-        
+
 
         public int DisableGlassOnBattery
         {

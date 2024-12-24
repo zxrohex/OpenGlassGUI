@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 using OpenGlassGUI.Config;
+using OpenGlassGUI.Core;
 
 namespace OpenGlassGUI
 {
@@ -12,7 +13,11 @@ namespace OpenGlassGUI
       
         public MainForm()
         {
+            LogManager.Log("MainForm begin init", "GUI MainForm");
+
             InitializeComponent();
+
+            LogManager.Log("MainForm init complete, loading registry values", "GUI MainForm");
 
             UpdateUI();
 
@@ -24,7 +29,8 @@ namespace OpenGlassGUI
 
         void UpdateUI()
         {
-    
+         
+
             GlassTypeComboBox.SelectedIndex = config.RegistrySettings.GlassType;
 
             GlassOpacityNUD.Value = config.RegistrySettings.GlassOpacity;

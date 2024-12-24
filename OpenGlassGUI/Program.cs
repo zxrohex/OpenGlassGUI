@@ -1,3 +1,5 @@
+using OpenGlassGUI.Core;
+
 namespace OpenGlassGUI
 {
     internal static class Program
@@ -11,6 +13,7 @@ namespace OpenGlassGUI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            LogManager.Log("AppConfig init");
             Application.Run(new MainForm());
         }
     }
